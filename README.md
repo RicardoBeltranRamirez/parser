@@ -8,5 +8,5 @@ A tiny library that checks whether brackets are balanced or not. It supports ``(
 
 # How to use it
 
-- Import in your project ``github.com/RicardoBeltranRamirez/parser``.
+- Import in your project ``github.com/RicardoBeltranRamirez/pkg/parser``.
 - Then, you can check with  ``parser.AreBracketsBalanced(val)`` where ``val`` is a string value.
