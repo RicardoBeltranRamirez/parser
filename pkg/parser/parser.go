@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"github.com/RicardoBeltranRamirez/parser/stack"
+	"github.com/RicardoBeltranRamirez/parser/internal/stack"
 )
 
 func AreBracketsBalanced(val string) bool {
@@ -14,7 +14,7 @@ func AreBracketsBalanced(val string) bool {
 			continue
 		}
 
-		//At this point, if the stack is empty, then no opening bracket were found, so we can say the brackets
+		//At this point, if the stack is empty, then no opening brackets were found, so we can say the brackets
 		//are not balanced
 		if stackDst.IsEmpty() {
 			return false
@@ -22,22 +22,22 @@ func AreBracketsBalanced(val string) bool {
 
 		switch v {
 		case ')':
-			check := stackDst.Pop()
-			if check == '[' || check == '{' {
+			openBracket := stackDst.Pop()
+			if openBracket == '[' || openBracket == '{' {
 				return false
 			}
 			break
 
 		case '}':
-			check := stackDst.Pop()
-			if check == '(' || check == '[' {
+			openBracket := stackDst.Pop()
+			if openBracket == '(' || openBracket == '[' {
 				return false
 			}
 			break
 
 		case ']':
-			check := stackDst.Pop()
-			if check == '(' || check == '{' {
+			openBracket := stackDst.Pop()
+			if openBracket == '(' || openBracket == '{' {
 				return false
 			}
 			break

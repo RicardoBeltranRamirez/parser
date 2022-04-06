@@ -1,6 +1,6 @@
 package stack
 
-//Stack represents and stack datastructures
+//Stack represents a stack data structure
 type Stack struct {
 	nodes []rune
 }
