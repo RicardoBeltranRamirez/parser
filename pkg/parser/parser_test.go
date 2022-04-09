@@ -36,32 +36,21 @@ func TestBracketsAreBalanced(t *testing.T) {
 			true,
 		},
 		{
-			"([)]",
+			"",
 			false,
 		},
 		{
-			"{[}",
-			false,
+			"{[(a)(a)]}b",
+			true,
 		},
 		{
-			"[{a}(a)}]",
-			false,
-		},
-		{
-			"[{{a}(a)]}",
-			false,
-		},
-		{
-			"a[]{}",
-			false,
+			"b{[()()]}",
+			true,
 		},
 	}
 
 	for _, testCase := range cases {
 		result := AreBracketsBalanced(testCase.input)
-
-		if result != testCase.expected {
-			require.FailNow(t, fmt.Sprintf("input:%s, expected:%v, got:%v", testCase.input, testCase.expected, result))
-		}
+		require.Equal(t, result, testCase.expected, fmt.Sprintf("input:%s, expected:%v, got:%v", testCase.input, testCase.expected, result))
 	}
 }

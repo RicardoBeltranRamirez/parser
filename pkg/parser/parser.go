@@ -4,8 +4,25 @@ import (
 	"github.com/RicardoBeltranRamirez/parser/internal/stack"
 )
 
+var bracketsMap = map[rune]rune{
+	'(': ')',
+	'[': ']',
+	'{': '}',
+}
+
+// AreBracketsBalanced checks whether brackets are balanced or not
+// 			() -> true
+//			{} -> true
+//			[] -> true
+//			({[a]}) -> true
+//			{[] -> false
+// Any other character than (), [], {} will be ignored by the parser
 func AreBracketsBalanced(val string) bool {
-	stackDst := stack.Stack{}
+	stackDst := stack.RuneStack{}
+
+	if val == "" {
+		return false
+	}
 
 	for _, v := range val {
 
@@ -14,33 +31,19 @@ func AreBracketsBalanced(val string) bool {
 			continue
 		}
 
-		//At this point, if the stack is empty, then no opening brackets were found, so we can say the brackets
-		//are not balanced
-		if stackDst.IsEmpty() {
-			return false
-		}
-
-		switch v {
-		case ')':
-			openBracket := stackDst.Pop()
-			if openBracket == '[' || openBracket == '{' {
+		if v == ')' || v == '}' || v == ']' {
+			//At this point, if the stack is empty, then no opening brackets were found, so we can say the brackets
+			//are not balanced
+			if stackDst.IsEmpty() {
 				return false
 			}
-			break
 
-		case '}':
 			openBracket := stackDst.Pop()
-			if openBracket == '(' || openBracket == '[' {
+			matchingBracket := bracketsMap[openBracket]
+
+			if v != matchingBracket {
 				return false
 			}
-			break
-
-		case ']':
-			openBracket := stackDst.Pop()
-			if openBracket == '(' || openBracket == '{' {
-				return false
-			}
-			break
 		}
 
 	}
